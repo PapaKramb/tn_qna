@@ -5,11 +5,12 @@ class AnswersController < ApplicationController
 
   def create
     @answer = question.answers.new(answer_params)
+    @answer.user = current_user
 
     if @answer.save
-      redirect_to answer_path(@answer)
+      redirect_to question_path(question), notice: 'Your answer successfully created.'
     else
-      render :new
+      render 'questions/show'
     end
   end
 
@@ -18,6 +19,12 @@ class AnswersController < ApplicationController
   def question
     Question.find(params[:question_id])
   end
+
+  def answer
+    @answer ||= params[:id] ? Answer.find(params[:id]) : Answer.new
+  end
+
+  helper_method :question, :answer
 
   def answer_params
     params.require(:answer).permit(:body)
