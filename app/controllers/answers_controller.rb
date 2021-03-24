@@ -1,4 +1,6 @@
 class AnswersController < ApplicationController
+  before_action :authenticate_user!
+
   def show; end
 
   def new; end
@@ -20,11 +22,7 @@ class AnswersController < ApplicationController
     Question.find(params[:question_id])
   end
 
-  def answer
-    @answer ||= params[:id] ? Answer.find(params[:id]) : Answer.new
-  end
-
-  helper_method :question, :answer
+  helper_method :question
 
   def answer_params
     params.require(:answer).permit(:body)
