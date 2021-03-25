@@ -16,13 +16,22 @@ class AnswersController < ApplicationController
     end
   end
 
+  def destroy
+    answer.destroy if current_user.author?(answer)
+    redirect_to question_path(question)
+  end
+
   private
 
   def question
-    Question.find(params[:question_id])
+    @question ||= params[:question_id] ? Question.find(params[:question_id]) : answer.question
   end
 
-  helper_method :question
+  def answer
+    @answer ||= params[:id] ? Answer.find(params[:id]) : Answer.new
+  end
+
+  helper_method :question, :answer
 
   def answer_params
     params.require(:answer).permit(:body)
