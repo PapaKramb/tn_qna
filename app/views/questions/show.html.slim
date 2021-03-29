@@ -1,4 +1,5 @@
-h1= question.title
+h3= 'Questions'
+h3= question.title
 p= question.body
 
 - if current_user&.author?(@question)
@@ -7,13 +8,13 @@ p= question.body
           method: :delete,
           data: { confirm: 'Are you sure?' }
 
-= render 'shared/errors', resource: @answer
-
-- question.answers.each do |answer|
-  p= answer.body
-
-= form_with model: [question, @answer], local: true do |f|
-  = f.label :body
-  = f.text_area :body
-  = f.submit 'Create answer'
-  
+h3= 'Answers'
+- @question.answers.each do |answer|
+    -if answer.persisted?
+      p= answer.body
+      - if current_user&.author?(answer)
+        p= link_to 'Delete answer',
+                answer_path(answer),
+                method: :delete,
+                data: { confirm: 'Are you sure?' }
+p= render 'answers/form'

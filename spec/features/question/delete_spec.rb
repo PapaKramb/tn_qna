@@ -9,7 +9,7 @@ feature 'User can delete his question' do
     scenario 'author delete question' do
       sign_in(author)
       visit question_path(question)
-
+      
       expect(page).to have_content "MyString"
       expect(page).to have_content "MyText"
       click_on 'Delete question'
