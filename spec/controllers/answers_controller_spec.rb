@@ -56,7 +56,7 @@ RSpec.describe AnswersController, type: :controller do
 
       context 'If user not author question' do
         it 'deletes the answer not author' do
-          expect { delete :destroy, params: { id: answer } }.to_not change(Answer, :count)
+          delete :destroy, params: { id: answer }
           expect(response).to redirect_to question_path(question)
         end
       end

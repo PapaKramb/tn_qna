@@ -11,11 +11,11 @@ feature 'User can destroy answer' do
       sign_in(author)
       visit question_path(question)
 
-      expect(page).to have_content "MyBody"
+      expect(page).to have_content answer.body
       click_on 'Delete answer'
 
       # save_and_open_page
-      expect(page).not_to have_content "MyBody"
+      expect(page).not_to have_content answer.body
       expect(page).to have_content 'Your answer was successfully deleted!'
     end
 

@@ -8,10 +8,11 @@ feature 'User can show question and answers' do
   scenario 'show question and answers' do
     visit question_path(question)
 
-    expect(page).to have_content "MyString"
-    expect(page).to have_content "MyText"
+    # save_and_open_page
+    expect(page).to have_content question.title
+    expect(page).to have_content question.body
     question.answers.each do |answer|
-      expect(page).to have_content "MyText"
+      expect(page).to have_content answer.body
     end
   end
 end

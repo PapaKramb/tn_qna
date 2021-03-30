@@ -7,9 +7,10 @@ feature 'User can view question' do
   scenario 'view list question' do
     visit questions_path
     
+    # save_and_open_page
     questions.each do |question|
-      expect(page).to have_content "MyString"
-      expect(page).to have_content "MyText"
+      expect(page).to have_content question.title
+      expect(page).to have_content question.body
     end
   end
 end

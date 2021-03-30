@@ -10,12 +10,12 @@ feature 'User can delete his question' do
       sign_in(author)
       visit question_path(question)
       
-      expect(page).to have_content "MyString"
-      expect(page).to have_content "MyText"
+      expect(page).to have_content question.title
+      expect(page).to have_content question.body
       click_on 'Delete question'
 
-      expect(page).not_to have_content "MyString"
-      expect(page).not_to have_content "MyText"
+      expect(page).not_to have_content question.title
+      expect(page).not_to have_content question.body
       expect(page).to have_content 'Your question was successfully deleted!'
     end
 

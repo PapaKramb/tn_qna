@@ -15,8 +15,9 @@ feature 'User can create answer' do
       fill_in 'Body', with: 'answer answer answer'
       click_on 'Create answer'
 
+      # save_and_open_page
       expect(page).to have_content 'Your answer successfully created.'
-      expect(page).to have_content 'Body'
+      expect(page).to have_content 'answer answer answer'
     end
 
     scenario 'answers the question with errors' do
