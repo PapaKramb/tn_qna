@@ -4,7 +4,7 @@ feature 'User can create answer' do
   given(:user) { create(:user) }
   given!(:question) { create(:question, user: user) }
 
-  describe 'Authenticated user' do
+  describe 'Authenticated user', js: true do
     background do
       sign_in(user)
 
@@ -16,8 +16,12 @@ feature 'User can create answer' do
       click_on 'Create answer'
 
       # save_and_open_page
-      expect(page).to have_content 'Your answer successfully created.'
-      expect(page).to have_content 'answer answer answer'
+      # expect(page).to have_content 'Your answer successfully created.'
+      # expect(page).to have_content 'answer answer answer'
+      expect(current_path).to eq question_path(question)
+      within '.answers' do # чтобы убедиться, что ответ в списке, а не в форме
+        expect(page).to have_content 'answer answer answer'
+      end
     end
 
     scenario 'answers the question with errors' do
