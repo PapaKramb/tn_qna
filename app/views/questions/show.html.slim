@@ -2,13 +2,11 @@ h3= 'Questions'
 h3= question.title
 p= question.body
 
-- if current_user&.author?(@question)
-  p= link_to 'Delete question',
-          question_path(@question),
-          method: :delete,
-          data: { confirm: 'Are you sure?' }
+.questions
+  = render @question
 
 h3= 'Answers'
+
 .answers
   = render @question.answers
 
