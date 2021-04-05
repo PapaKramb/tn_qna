@@ -100,7 +100,7 @@ RSpec.describe QuestionsController, type: :controller do
         end
 
         it 're-render edit view' do
-          expect(response).to render_template :edit
+          expect(response).to render_template :update
         end
       end
     end

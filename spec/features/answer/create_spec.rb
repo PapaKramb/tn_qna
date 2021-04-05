@@ -14,9 +14,9 @@ feature 'User can create answer' do
     scenario 'answers the question' do
       fill_in 'Body', with: 'answer answer answer'
       click_on 'Create answer'
-
+      
       expect(current_path).to eq question_path(question)
-      within '.answers' do # чтобы убедиться, что ответ в списке, а не в форме
+      within '.answers' do
         expect(page).to have_content 'answer answer answer'
       end
     end
