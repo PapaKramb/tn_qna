@@ -21,6 +21,10 @@ class AnswersController < ApplicationController
     answer.destroy if current_user.author?(answer)
   end
 
+  def best_answer
+    answer.make_best if current_user.author?(question)
+  end
+
   private
 
   def question

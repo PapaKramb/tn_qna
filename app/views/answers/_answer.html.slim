@@ -1,8 +1,13 @@
 - if answer.persisted?
   div id="answer_#{answer.id}"
+    - if answer.best
+      p class="best-answer" Best answer
     p= answer.body
+    - if current_user&.author?(answer.question) && !answer.best
+      p= link_to  'Choose as the best answer', best_answer_answer_path(answer), method: :patch, remote: true 
     - if current_user&.author?(answer)
       p= link_to 'Edit answer', '#', class: 'edit-answer-link', data: { answer_id: answer.id }
+
 
       = form_with model: answer, class: 'hidden', html: { id: "edit-answer-#{answer.id}" }, local: false do |f|
         = f.label :body, 'Your answer'

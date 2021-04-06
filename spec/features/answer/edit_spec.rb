@@ -54,7 +54,6 @@ feature 'User can edit his answer', %q{
 
     scenario "tries to edit other user's answer" do
       sign_in(user)
-      # save_and_open_page
       visit question_path(question)
 
       expect(page).to_not have_link 'Edit answer'

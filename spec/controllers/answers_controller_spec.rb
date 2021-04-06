@@ -68,6 +68,30 @@ RSpec.describe AnswersController, type: :controller do
       end
     end
 
+    describe 'PATCH #make_best' do
+      context 'If user author question' do 
+        let!(:answer) { create(:answer, question: question, user: user) }
+
+        it 'choose answer as best' do
+          patch :best_answer, params: { id: answer }, format: :js
+          answer.reload
+          expect(answer.best).to eq true
+        end
+
+        it 'renders to make_best view' do
+          patch :best_answer, params: { id: answer }, format: :js
+          expect(response).to render_template :best_answer
+        end
+      end
+
+      context 'If user not author question' do 
+        it 're-renders to make_best view' do
+          patch :best_answer, params: { id: answer }, format: :js
+          expect(response).to render_template :best_answer
+        end  
+      end
+    end
+
     describe 'DELETE #destroy' do
       context 'If user author answer' do
         let!(:answer) { create(:answer, question: question, user: user) }
