@@ -1,12 +1,12 @@
 require 'rails_helper'
 
 feature 'User can destroy answer' do
-  given(:user) { create(:user) }
-  given(:author) { create(:user) }
-  given(:question) { create(:question, user: user) }
+  given!(:user) { create(:user) }
+  given!(:author) { create(:user) }
+  given!(:question) { create(:question, user: user) }
   given!(:answer) { create(:answer, question: question, user: author) }
 
-  describe 'Authenticated user' do
+  describe 'Authenticated user', js: true do
     scenario 'author delete answer' do
       sign_in(author)
       visit question_path(question)
@@ -16,7 +16,6 @@ feature 'User can destroy answer' do
 
       # save_and_open_page
       expect(page).not_to have_content answer.body
-      expect(page).to have_content 'Your answer was successfully deleted!'
     end
 
     scenario 'not author delete question' do

@@ -1,7 +1,6 @@
-table
-  tr
-    th Title
-    th Body
-  = render @questions
+.questions
+  h3 Questions
+  .question-errors
+    = render @questions
 
 p= link_to 'Ask question', new_question_path

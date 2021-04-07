@@ -5,24 +5,24 @@ class AnswersController < ApplicationController
 
   def new; end
 
+  def edit; end
+
   def create
     @answer = question.answers.new(answer_params)
     @answer.user = current_user
+    @answer.save
+  end
 
-    if @answer.save
-      redirect_to question_path(question), notice: 'Your answer successfully created.'
-    else
-      render 'questions/show'
-    end
+  def update
+    answer.update(answer_params) if current_user.author?(answer)
   end
 
   def destroy
-    if current_user.author?(answer)
-      answer.destroy
-      redirect_to question_path(question), notice: 'Your answer was successfully deleted!'
-    else
-      render 'questions/show', notice: 'Answer was not delete.'
-    end
+    answer.destroy if current_user.author?(answer)
+  end
+
+  def best_answer
+    answer.make_best if current_user.author?(question)
   end
 
   private

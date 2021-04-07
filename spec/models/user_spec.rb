@@ -11,11 +11,13 @@ RSpec.describe User, type: :model do
   it { should validate_presence_of :email }
   it { should validate_presence_of :password }
 
-  it 'user is author' do
-    expect(author).to be_author(question)
-  end
-
-  it 'user is not author' do
-    expect(user).not_to be_author(question)
-  end
+  describe '#author' do
+    it 'user is author' do
+      expect(author).to be_author(question)
+    end
+  
+    it 'user is not author' do
+      expect(user).not_to be_author(question)
+    end
+  end  
 end
