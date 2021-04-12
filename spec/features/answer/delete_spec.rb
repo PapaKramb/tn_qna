@@ -18,6 +18,29 @@ feature 'User can destroy answer' do
       expect(page).not_to have_content answer.body
     end
 
+    scenario 'delete question with attached file' do
+      sign_in(author)
+
+      visit question_path(question)
+
+      click_on 'Edit answer'
+      
+      within '.answers' do
+        attach_file 'File', ["#{Rails.root}/spec/rails_helper.rb", "#{Rails.root}/spec/spec_helper.rb"]
+        click_on 'Save'
+      end
+      visit question_path(question)
+
+      expect(page).to have_link 'rails_helper.rb'
+      expect(page).to have_link 'spec_helper.rb'
+      # save_and_open_page
+      within "#file_#{answer.files.first.id}" do
+        click_on 'Delete file'
+      end
+
+      expect(page).to_not have_link 'rails_helper.rb'
+    end
+
     scenario 'not author delete question' do
       sign_in(user)
       visit question_path(question)
