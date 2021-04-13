@@ -7,9 +7,12 @@ class QuestionsController < ApplicationController
 
   def show
     @answer ||= question.answers.new
+    @answer.links.new
   end
 
-  def new; end
+  def new
+    question.links.new
+  end
 
   def edit; end
 
@@ -45,6 +48,7 @@ class QuestionsController < ApplicationController
   helper_method :question
 
   def question_params
-    params.require(:question).permit(:title, :body, files: [])
+    params.require(:question).permit(:title, :body, 
+                                      files: [], links_attributes: [:name, :url])
   end
 end

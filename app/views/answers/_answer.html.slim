@@ -4,6 +4,12 @@
       p class="best-answer" Best answer
 
     p= answer.body
+
+    .links
+      p Links:
+      ul 
+        - answer.links.each do |link|
+          li= link_to link.name, link.url
     
     - if current_user&.author?(answer.question) && !answer.best
       p= link_to  'Choose as the best answer', best_answer_answer_path(answer), method: :patch, remote: true 
