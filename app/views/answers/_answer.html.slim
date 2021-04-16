@@ -8,8 +8,12 @@
     .links
       p Links:
       ul 
-        - answer.links.each do |link|
-          li= link_to link.name, link.url
+        -answer.links.each do |link|
+          div id="link_#{link.id}"
+            = link_to link.name, link.url
+            - if current_user&.author?(answer)
+              = ' | '
+              = link_to 'Delete link', link_path(link), method: :delete, remote: true
     
     - if current_user&.author?(answer.question) && !answer.best
       p= link_to  'Choose as the best answer', best_answer_answer_path(answer), method: :patch, remote: true 
@@ -31,6 +35,10 @@
         p
           = f.label :files
           = f.file_field :files, multiple: true
+        #links
+          = f.fields_for :links do |link|
+          .add-links
+            = link_to_add_association 'add link', f, :links, partial: 'shared/link_fields'
         p= f.submit 'Save'
 
       p= link_to 'Delete answer', answer_path(answer), method: :delete, remote: true

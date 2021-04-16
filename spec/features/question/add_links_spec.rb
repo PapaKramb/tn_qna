@@ -8,19 +8,34 @@ feature 'User can add links to answer', %q{
 
   given(:user) { create(:user) }
   given(:gist_url) { 'https://gist.github.com/PapaKramb/e8943bcca0e3c40c399d6656a19c522e' }
+  given(:google_url) { 'https://google.com' }
 
-  scenario 'User adds links when asks answer' do
+  scenario 'User adds links when asks answer', js: true do
     sign_in(user)
     visit new_question_path
 
     fill_in 'Title', with: 'Test question'
     fill_in 'Body', with: 'text text text'
 
-    fill_in 'Link name', with: 'My gist'
-    fill_in 'Url', with: gist_url
+    click_on 'add link'
+
+    within all('.nested-fields')[0] do
+      fill_in 'Link name', with: 'My gist'
+      fill_in 'Url', with: gist_url
+    end
+
+    click_on 'add link'
+
+    within all('.nested-fields')[1] do
+      fill_in 'Link name', with: 'Google'
+      fill_in 'Url', with: google_url
+    end
 
     click_on 'Ask'
 
-    expect(page).to have_link 'My gist', href: gist_url
+    within '.questions' do
+      expect(page).to have_link 'My gist', href: gist_url
+      expect(page).to have_link 'Google', href: google_url
+    end
   end
 end
