@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature 'User can delete links to answer' do
+feature 'User can delete links to question' do
   given(:user) { create(:user) }
   given(:author) { create(:user) }
   given!(:question) { create(:question, user: author) }

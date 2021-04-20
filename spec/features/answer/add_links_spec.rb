@@ -1,9 +1,9 @@
 require 'rails_helper'
 
-feature 'User can add links to question', %q{
-  In order to provide additional info to my question
-  As an question author
-  I'd like to be able add to links
+feature 'User can add links to answer', %q{
+    In order to provide additional info to my answer
+    As an answer author
+    I'd like to be able add to links
 } do
 
   given(:user) { create(:user) }
@@ -11,7 +11,7 @@ feature 'User can add links to question', %q{
   given(:gist_url) { 'https://gist.github.com/PapaKramb/e8943bcca0e3c40c399d6656a19c522e' }
   given(:google_url) { 'https://google.com' }
 
-  scenario 'User adds links when asks question', js: true do
+  scenario 'User adds links when asks answer', js: true do
     sign_in(user)
     visit question_path(question) 
 
