@@ -107,7 +107,7 @@ feature 'User can edit his question', %q{
       visit question_path(question)
 
       # save_and_open_page
-      expect(page).to have_link 'My gist'
+      expect(page).to have_link 'My gist', href: gist_url
     end
   end
 end

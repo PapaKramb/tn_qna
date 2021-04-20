@@ -100,7 +100,7 @@ feature 'User can edit his answer', %q{
       end
       visit question_path(question)
 
-      expect(page).to have_link 'My gist'
+      expect(page).to have_link 'My gist', href: gist_url
     end
   end
 end
