@@ -18,10 +18,10 @@ tr
             = ' | '
             = link_to 'Delete link', link_path(link), method: :delete, remote: true
       
-    - if question.reward.present?
-      div class="reward"
-        = "Reward:"
-        = image_tag(question.reward.image_url, size: "20x20")
+  - if question.reward.present?
+    div class="reward"
+      = "Reward:"
+      img src=url_for(question.reward.image_url)
  
 - if question.persisted?
   - if current_user&.author?(question)

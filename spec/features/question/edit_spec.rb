@@ -95,8 +95,6 @@ feature 'User can edit his question', %q{
         fill_in 'Your question title', with: 'edited question title'
         fill_in 'Your question body', with: 'edited question body'
 
-        attach_file 'File', ["#{Rails.root}/spec/rails_helper.rb", "#{Rails.root}/spec/spec_helper.rb"]
-
         click_on 'add link'
 
         within all('.nested-fields')[0] do
@@ -108,8 +106,8 @@ feature 'User can edit his question', %q{
       end
       visit question_path(question)
 
-      expect(page).to have_link 'rails_helper.rb'
-      expect(page).to have_link 'spec_helper.rb'
+      # save_and_open_page
+      expect(page).to have_link 'My gist'
     end
   end
 end
