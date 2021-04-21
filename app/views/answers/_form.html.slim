@@ -6,6 +6,11 @@
     = f.text_area :body
   p
     = f.label :files
-    = f.file_field :files, multiple: true
+    = f.file_field :files, multiple: true 
+  #links
+    = f.fields_for :links do |link|
+    .add-links
+      = link_to_add_association 'add link', f, :links, partial: 'shared/link_fields'
+        
   p= f.submit 'Create answer'
   
