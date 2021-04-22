@@ -9,7 +9,6 @@
       p Links:
       ul 
         -answer.links.each do |link|
-          div id="link_#{link.id}"
             .link-errors
               = render 'shared/errors', resource: link
             - if link.gist?

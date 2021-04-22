@@ -53,3 +53,5 @@ tr
 
 - if current_user&.author?(question)
   p= link_to 'Delete question', question_path(question), method: :delete, remote: true
+
+p= link_to 'Back', questions_path, remote: true
