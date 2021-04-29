@@ -1,6 +1,9 @@
 require 'rails_helper'
+require Rails.root.join('spec/controllers/concerns/voted_spec.rb')
 
 RSpec.describe AnswersController, type: :controller do
+  it_behaves_like 'voted'
+
   let(:user) { create(:user) }
   let(:question) { create(:question, user: user) }
   let(:answer) { create(:answer, question: question, user: user) }
@@ -19,23 +22,13 @@ RSpec.describe AnswersController, type: :controller do
     describe 'POST #create' do
       context 'with valid attributes' do
         it 'saves a new answer in the database' do
-          expect { post :create, params: { question_id: question, answer: attributes_for(:answer) }, format: :js }.to change(question.answers, :count).by(1)
-        end
-
-        it 'renders create template' do
-          post :create, params: { question_id: question, answer: attributes_for(:answer), format: :js }
-          expect(response).to render_template :create
+          expect { post :create, params: { question_id: question, answer: attributes_for(:answer) }, format: :json }.to change(question.answers, :count).by(1)
         end
       end
 
       context 'with invalid attributes' do
         it 'does not save the answer' do
-          expect { post :create, params: { question_id: question, answer: attributes_for(:answer, :invalid) }, format: :js }.to_not change(Answer, :count)
-        end
-
-        it 're-renders create template' do
-          post :create, params: { question_id: question, answer: attributes_for(:answer, :invalid), format: :js }
-          expect(response).to render_template :create
+          expect { post :create, params: { question_id: question, answer: attributes_for(:answer, :invalid) }, format: :json }.to_not change(Answer, :count)
         end
       end
     end
@@ -114,29 +107,4 @@ RSpec.describe AnswersController, type: :controller do
       end
     end
   end
-
-  describe 'Unauthenticated user' do
-    describe 'GET #edit' do
-      before { get :edit, params: { id: answer } }
-
-      it 'redirect to sign in page' do
-        expect(response).to redirect_to new_user_session_path
-      end
-    end
-
-    describe 'POST #create' do
-      it 'redirect to sign in page' do
-        post :create, params: { question_id: question, answer: attributes_for(:answer, :invalid) }
-        expect(response).to redirect_to new_user_session_path
-      end
-    end
-
-    describe 'DELETE #destroy' do
-      it 'redirect to sign in page' do
-        delete :destroy, params: { id: answer }
-        expect(response).to redirect_to new_user_session_path
-      end
-    end
-  end
-
 end

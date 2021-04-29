@@ -10,6 +10,7 @@ require("channels")
 require("jquery")
 require("utilities/questions")
 require("utilities/answers")
+require("utilities/votes")
 require("@nathanvda/cocoon")
 
 // Uncomment to copy all static images under ../images to the output folder and reference

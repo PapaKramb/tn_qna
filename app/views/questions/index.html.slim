@@ -2,5 +2,6 @@
   h3 Questions
   .question-errors
   = render @questions
-
-p= link_to 'Ask question', new_question_path
+  
+- if current_user.present?
+  p= link_to 'Ask question', new_question_path

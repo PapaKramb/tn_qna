@@ -35,6 +35,7 @@ feature 'User can add links to answer', %q{
 
     within '.answers' do
       # save_and_open_page
+      visit question_path(question)
       expect(page).to have_link 'My gist', href: gist_url
       expect(page).to have_link 'Google', href: google_url
     end

@@ -1,6 +1,7 @@
 require 'rails_helper'
+require Rails.root.join('spec/models/concerns/votable_spec.rb')
 
-RSpec.describe Answer, type: :model do
+RSpec.describe Answer, type: :model do 
   it { should belong_to(:user) }
   it { should belong_to(:question) }
   it { should have_many(:links).dependent(:destroy) }
@@ -9,12 +10,14 @@ RSpec.describe Answer, type: :model do
 
   it { should validate_presence_of :body }
 
-  describe '#make_best' do
-    let(:user) { create(:user) }
-    let!(:question) { create(:question, user: user) }
-    let!(:first_answer) { create(:answer, question: question, user: user) }
-    let!(:second_answer) { create(:answer, question: question, user: user) }
-    
+  it_behaves_like 'votable'
+
+  let(:user) { create(:user) }
+  let!(:question) { create(:question, user: user) }
+  let!(:first_answer) { create(:answer, question: question, user: user) }
+  let!(:second_answer) { create(:answer, question: question, user: user) }
+
+  describe '#make_best' do    
     it 'choose as the best answer' do
       first_answer.make_best
       
