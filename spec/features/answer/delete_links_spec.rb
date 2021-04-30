@@ -8,14 +8,15 @@ feature 'User can delete links to answer' do
   given!(:link) { create(:link, linkable: answer) }
 
   describe 'Authenticated user', js: true do
-    scenario 'author can delete links to their answers', js: true do
+    scenario 'author can delete links to their answers', json: true do
       sign_in(author)
       visit question_path(question)
 
       expect(page).to have_link link.name
 
       click_on 'Delete link'
-
+      
+      visit question_path(question)
       expect(page).to_not have_link link.name
     end
 

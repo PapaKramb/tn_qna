@@ -7,7 +7,9 @@ h3= 'Questions'
 h3= 'Answers'
 
 .answers
-  .answer-errors
+  .answers-errors
   = render @question.answers
 
-p= render 'answers/form'
+- if current_user.present?
+  p= render 'answers/form'
+  

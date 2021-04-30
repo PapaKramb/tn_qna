@@ -4,12 +4,14 @@
       p class="best-answer" Best answer
 
     p= answer.body
+    
+    div class="vote-answer-rating"
+      = render 'shared/vote', votable: answer
 
     .links
       p Links:
       ul 
         -answer.links.each do |link|
-          div id="link_#{link.id}"
             .link-errors
               = render 'shared/errors', resource: link
             - if link.gist?
@@ -33,7 +35,7 @@
               = ' | '
               = link_to 'Delete file', file_path(file), method: :delete, remote: true
 
-      = form_with model: answer, class: 'hidden', html: { id: "edit-answer-#{answer.id}" }, local: false do |f|
+      = form_with model: answer, class: 'hidden', html: { id: "edit-answer-#{answer.id}" }, data: { type: :json } do |f|
         p
           = f.label :body, 'Your answer'
           = f.text_area :body

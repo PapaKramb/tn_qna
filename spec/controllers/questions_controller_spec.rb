@@ -1,6 +1,9 @@
 require 'rails_helper'
+require Rails.root.join('spec/controllers/concerns/voted_spec.rb')
 
 RSpec.describe QuestionsController, type: :controller do
+  it_behaves_like 'voted'
+
   let(:user) { create(:user) }
   let(:question) { create(:question, user: user) }
 
@@ -136,45 +139,6 @@ RSpec.describe QuestionsController, type: :controller do
           expect { delete :destroy, params: { id: question } }.to_not change(Question, :count)
           expect(response).to redirect_to questions_path
         end
-      end
-    end
-  end
-
-  describe 'Unauthenticated user' do
-    describe 'GET #new' do
-      before { get :new }
-
-      it 'redirect to sign in page' do
-        expect(response).to redirect_to new_user_session_path
-      end
-    end
-
-    describe 'GET #edit' do
-      before { get :edit, params: { id: question } }
-
-      it 'redirect to sign in page' do
-        expect(response).to redirect_to new_user_session_path
-      end
-    end
-
-    describe 'POST #create' do
-      it 'redirects to sign in page' do
-        post :create, params: { question: attributes_for(:question) }
-        expect(response).to redirect_to new_user_session_path
-      end
-    end
-
-    describe 'PATCH #update' do
-      it 'redirects to sign in page' do
-        patch :update, params: { id: question, question: attributes_for(:question) }
-        expect(response).to redirect_to new_user_session_path
-      end
-    end
-
-    describe 'DELETE #destroy' do
-      it 'redirects to sign in page' do
-        delete :destroy, params: { id: question }
-        expect(response).to redirect_to new_user_session_path
       end
     end
   end
