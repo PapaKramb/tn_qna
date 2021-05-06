@@ -26,6 +26,8 @@ gem 'bootstrap'
 gem 'jquery-rails'
 gem 'google-cloud-storage'
 gem "cocoon"
+gem 'handlebars'
+gem 'gon'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
