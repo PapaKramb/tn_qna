@@ -1,4 +1,3 @@
-.question data-id="#{question.id}"
 tr
   td= ("#{question.title}")
   = ' | '
@@ -57,3 +56,4 @@ tr
 
 - if current_user&.author?(question)
   p= link_to 'Delete question', question_path(question), method: :delete, remote: true
+  

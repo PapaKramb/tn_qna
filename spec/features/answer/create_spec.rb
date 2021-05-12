@@ -51,7 +51,6 @@ feature 'User can create answer' do
       end
 
       Capybara.using_session('user') do
-
         fill_in 'Body', with: 'answer answer answer'
         click_on 'Create answer'
 

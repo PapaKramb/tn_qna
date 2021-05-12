@@ -13,6 +13,7 @@ class QuestionsController < ApplicationController
   def show
     @answer ||= question.answers.new
     @answer.links.new
+    @comment = @question.comments.build(user: current_user)
   end
 
   def new

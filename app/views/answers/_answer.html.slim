@@ -49,4 +49,9 @@
         p= f.submit 'Save'
 
       p= link_to 'Delete answer', answer_path(answer), method: :delete, remote: true
+
+    = render "comments/comments", commentable: answer
+    - if current_user
+      - @comment = answer.comments.build(user: current_user)
+      = render "comments/form", commentable: answer
           

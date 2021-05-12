@@ -11,6 +11,7 @@ require("jquery")
 require("utilities/questions")
 require("utilities/answers")
 require("utilities/votes")
+require("utilities/comments")
 require("@nathanvda/cocoon")
 require("handlebars")
 
