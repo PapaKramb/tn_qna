@@ -7,7 +7,7 @@ class Ability
 
   def initialize(user)
     @user = user
-    
+
     if user
       user.admin? ? admin_abilities : user_abilities
     else
@@ -26,6 +26,27 @@ class Ability
   def user_abilities
     guset_abilities
     can :create, [Question, Answer, Comment]
-    can :update, [Question, Answer], user_id: user.id
+    can [:update,:destroy], [Question, Answer], { user_id: user.id }
+    can :rewards, User, { user_id: user.id }
+
+    can :destroy, Link do |link|
+      user.author?(link.linkable)
+    end
+  
+    can :destroy, ActiveStorage::Attachment do |file|
+      user.author?(file.record)
+    end
+  
+    can [:vote_up, :vote_down], [Question, Answer] do |votable|
+      !user.author?(votable)
+    end
+  
+    can :delete_vote, [Question, Answer] do |votable|
+      votable.votes.find_by(user_id: user.id)
+    end
+
+    can :best_answer, Answer do |answer|
+      user.author?(answer.question)
+    end
   end
 end

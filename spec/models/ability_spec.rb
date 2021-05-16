@@ -33,9 +33,24 @@ RSpec.describe Ability, type: :model do
     it { should be_able_to :create, Comment }
 
     it { should be_able_to :update, create(:question, user: user) }
-    it { should_not be_able_to :update, create(:question, user:other) }
+    it { should_not be_able_to :update, create(:question, user: other) }
+
+    it { should be_able_to :destroy, create(:question, user: user) }
+    it { should_not be_able_to :destroy, create(:question, user: other) }
 
     it { should be_able_to :update, create(:answer, question: question, user: user) }
     it { should_not be_able_to :update, create(:answer, question: question, user: other) }
+
+    it { should be_able_to :destroy, create(:answer, question: question, user: user) }
+    it { should_not be_able_to :destroy, create(:answer, question: question, user: other) }
+
+    it { should be_able_to :best_answer, create(:answer, question: question, user: user) }
+
+    it { should be_able_to :destroy, create(:link, linkable: create(:question, user: user)) }
+    it { should_not be_able_to :destroy, create(:link, linkable: create(:question, user: other)) }
+
+    it { should be_able_to %i[vote_up vote_down], other_question }
+    it { should_not be_able_to %i[vote_up vote_down], question }
+    it { should_not be_able_to :delete_vote, question }
   end
 end

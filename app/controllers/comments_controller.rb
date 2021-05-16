@@ -5,6 +5,8 @@ class CommentsController < ApplicationController
 
   after_action :publish_comment, only: %i[create]
 
+  authorize_resource
+
   def create
     respond_to do |format|
       @comment = current_user.comments.build(comment_params)
