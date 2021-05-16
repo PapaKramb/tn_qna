@@ -1,0 +1,6 @@
+.comments
+  - if commentable.comments.present?
+    ul
+    - commentable.comments.each do |c|
+      li= c.body
+      

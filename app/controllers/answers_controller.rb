@@ -1,6 +1,9 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!
 
+  after_action :publish_answer, only: %i[create]
+  after_action :set_answer_gon, only: %i[create]
+
   include Voted
 
   def show; end
@@ -51,6 +54,15 @@ class AnswersController < ApplicationController
 
   def answer_params
     params.require(:answer).permit(:body, files: [], links_attributes: [:name, :url])
+  end
+
+  def publish_answer
+    return if @answer.errors.any?
+    ActionCable.server.broadcast("questions/#{params[:question_id]}/answers", answer: @answer, user_id: current_user.id)
+  end
+
+  def set_answer_gon
+    gon.answer_id = answer.id
   end
 
 end

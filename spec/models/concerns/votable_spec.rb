@@ -8,7 +8,6 @@ shared_examples_for "votable" do
 
   klass_instance = (described_class.new).class.to_s.underscore.split('_')[0].singularize.to_sym
 
-
   case klass_instance
   when :question
     let!(:votable) { create(klass_instance, user: user1) }

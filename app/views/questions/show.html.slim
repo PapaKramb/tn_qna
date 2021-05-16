@@ -1,8 +1,11 @@
 h3= 'Questions'
 
 .questions
-  .question-errors
-  = render @question
+  .question data-id="#{question.id}"
+    .question-errors
+      = render @question
+      = render "comments/comments", commentable: question
+      = render "comments/form", commentable: question
       
 h3= 'Answers'
 
