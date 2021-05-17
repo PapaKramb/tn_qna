@@ -28,6 +28,7 @@ gem 'google-cloud-storage'
 gem "cocoon"
 gem 'handlebars'
 gem 'gon'
+gem 'cancancan'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
