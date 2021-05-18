@@ -29,6 +29,7 @@ gem "cocoon"
 gem 'handlebars'
 gem 'gon'
 gem 'cancancan'
+gem 'doorkeeper'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
