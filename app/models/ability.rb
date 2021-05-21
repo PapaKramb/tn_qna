@@ -48,5 +48,9 @@ class Ability
     can :best_answer, Answer do |answer|
       user.author?(answer.question)
     end
+
+    can :me, User do |profile|
+      profile.id == user.id
+    end
   end
 end
