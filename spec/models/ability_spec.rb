@@ -52,5 +52,11 @@ RSpec.describe Ability, type: :model do
     it { should be_able_to %i[vote_up vote_down], other_question }
     it { should_not be_able_to %i[vote_up vote_down], question }
     it { should_not be_able_to :delete_vote, question }
+
+    context 'API' do
+      context 'Profiles' do
+        it { should be_able_to :me, user}  
+      end
+    end
   end
 end

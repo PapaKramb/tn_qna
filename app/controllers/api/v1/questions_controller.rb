@@ -14,6 +14,7 @@ class Api::V1::QuestionsController < Api::V1::BaseController
 
   def create
     @question = current_resource_owner.questions.build(question_params)
+    
     if @question.save
       render json: @question, serializer: QuestionSerializer
     end
@@ -23,7 +24,7 @@ class Api::V1::QuestionsController < Api::V1::BaseController
     if @question.update(question_params)
       render json: @question, serializer: QuestionSerializer
     else
-      render json: { message: 'error update', status: 422}
+      render json: { message: 'error update', status: 422 }
     end
   end
 
@@ -38,9 +39,6 @@ class Api::V1::QuestionsController < Api::V1::BaseController
   end
 
   def question_params
-    params.require(:question).permit(:title,
-                                    :body,
-                                    links_attributes: [:name, :url],
-                                    reward_attributes: [:title, :img_url])
+    params.require(:question).permit(:title, :body, links_attributes: [:name, :url], reward_attributes: [:title, :img_url])
   end
 end

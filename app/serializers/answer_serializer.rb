@@ -1,7 +1,7 @@
-class QuestionSerializer < ActiveModel::Serializer
+class AnswerSerializer < ActiveModel::Serializer
   include Rails.application.routes.url_helpers
   
-  attributes %i[id title body user_id created_at updated_at files]
+  attributes %i[id user_id question_id body created_at updated_at files]
 
   has_many :comments
   has_many :links
