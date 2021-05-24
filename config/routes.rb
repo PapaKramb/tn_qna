@@ -1,6 +1,19 @@
 Rails.application.routes.draw do
+  use_doorkeeper
   devise_for :users
   root to: 'questions#index'
+
+  namespace :api do
+    namespace :v1 do
+      resources :profiles, only: [:index] do
+        get :me, on: :collection
+      end
+
+      resources :questions, only: %i[index show create destroy update] do
+        resources :answers, only: %i[index show create destroy update], shallow: true
+      end
+    end
+  end
 
   resources :users do
     get :rewards, on: :member

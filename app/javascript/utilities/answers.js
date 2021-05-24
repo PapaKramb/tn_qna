@@ -7,7 +7,7 @@ $(document).on('turbolinks:load', function(){
   })
 
   $('form.new-answer').on('ajax:success', function(e){
-      const answer = e.detail[0];
+      const answer = e.detail[0].answer;
 
       $('.answers').append('<p>' + answer.body + '</p>');
   })
