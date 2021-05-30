@@ -6,6 +6,8 @@ class Question < ApplicationRecord
   has_many :answers, dependent: :destroy
   has_many :links, dependent: :destroy, as: :linkable
   belongs_to :user
+  has_many :subscribes, dependent: :destroy
+  has_many :subscribers, through: :subscribes
 
   has_many_attached :files
 
@@ -15,6 +17,8 @@ class Question < ApplicationRecord
   validates :title, :body, presence: true
 
   after_create :calculate_reputation
+
+  scope :today, -> { where("DATE(created_at) = ? ", Date.today) }
 
   private
 
