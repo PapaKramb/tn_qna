@@ -10,8 +10,13 @@ class User < ApplicationRecord
   has_many :rewards, through: :user_rewards
   has_many :votes, dependent: :destroy
   has_many :comments, dependent: :destroy
+  has_many :subscribes, dependent: :destroy
 
   def author?(resource)
     resource.user_id == id
+  end
+
+  def subscriber_of?(question)
+    question.subscribes.find_by(user_id: id).present?
   end
 end

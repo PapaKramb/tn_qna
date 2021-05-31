@@ -9,6 +9,7 @@ RSpec.describe User, type: :model do
   it { should have_many(:questions).dependent(:destroy) }
   it { should have_many(:answers).dependent(:destroy) }
   it { should have_many(:votes).dependent(:destroy) }
+  it { should have_many(:subscribes).dependent(:destroy) }
 
   it { should validate_presence_of :email }
   it { should validate_presence_of :password }
@@ -21,5 +22,18 @@ RSpec.describe User, type: :model do
     it 'user is not author' do
       expect(user).not_to be_author(question)
     end
-  end  
+  end
+  
+  describe "#subscriber_of?" do
+    let(:subscribe) { create(:subscribe, user: user, question: question) }
+    let(:unsubscriber) { create(:user) }
+
+    it "User is a aubscriber of question" do
+      expect(user).not_to be_subscriber_of(question)
+    end
+
+    it "User is an unsubscriber of question" do
+      expect(unsubscriber).not_to be_subscriber_of(question)
+    end
+  end
 end

@@ -20,7 +20,12 @@ tr
           - if current_user&.author?(question)
             = ' | '
             = link_to 'Delete link', link_path(link), method: :delete, remote: true
-      
+
+  - if current_user&.subscriber_of?(question)
+    p= button_to "Unsubscribe", subscribe_path(@subscribe), method: :delete
+  - else
+    p= button_to "Subscribe", question_subscribes_path(question), method: :post
+
   - if question.reward.present?
     div class="reward"
       = "Reward:"

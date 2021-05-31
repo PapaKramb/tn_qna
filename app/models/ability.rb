@@ -25,9 +25,10 @@ class Ability
 
   def user_abilities
     guset_abilities
-    can :create, [Question, Answer, Comment]
+    can :create, [Question, Answer, Comment, Subscribe]
     can [:update,:destroy], [Question, Answer], { user_id: user.id }
     can :rewards, User, { user_id: user.id }
+    can :destroy, Subscribe, { user_id: user.id }
 
     can :destroy, Link do |link|
       user.author?(link.linkable)
